@@ -1,85 +1,114 @@
 class Node {
-    constructor (value){
+    constructor(value) {
         this.value = value
         this.next = null
     }
 }
 
-class LinkedList{
-    constructor(){
+class LinkedList {
+    constructor() {
         this.head = null
     }
-    prepend(value){
-        const node = new Node(value)
-        if(!this.head){
-            this.head = node
-        }else{
-            node.next = this.head
-            this.head = node
+    prepend(value) {
+        const newNode = new Node(value)
+        if (!this.head) {
+            this.head = newNode
+        } else {
+            newNode.next = this.head
+            this.head = newNode
         }
     }
-    size (){
+    append(value) {
+        const newNode = new Node(value)
+        if (!this.head) {
+            this.head = newNode
+        } else {
+            let prev = this.head
+            while (prev.next) {
+                prev = prev.next
+            }
+            prev.next = newNode
+        }
+    }
+    print() {
+        let curr = this.head
+        while (curr) {
+            console.log(curr.value);
+            curr = curr.next
+        }
+    }
+    size() {
         let count = 0
         let curr = this.head
-        while(curr !== null){
+        while (curr !== null) {
             count++
             curr = curr.next
         }
         return count
     }
-    print (value){
-        let curr = this.head
-        while(curr){
-            console.log(curr.value);
-            curr = curr.next
-        }
-    }
-    append (value){
-        const node = new Node(value)
-        if(!this.head){
-            this.head = node
-        }
-        let prev = this.head
-        while(prev.next){
-            prev= prev.next
-        }prev.next= node
-    }
-    removefrom(index){
-        if(index=0 || index>this.size){
+    insert(value, index) {
+        if (index < 0 || index > this.size) {
             return null
         }
-        let prev = 0 
-        if(index===0){
-            curr = this.head
+        if (index === 0) {
+            this.perpend(value)
+        } else {
+            const node = new Node(value)
+            let prev = this.head
+            for (let i = 0; i < index - 1; i++) {
+                prev = prev.next
+            }
+            node.next = prev.next
+            prev.next = node
+        }
+    }
+    removeFrom(index) {
+        if (index < 0 || index > this.size) {
+            return null
+        }
+        let removeNode
+        if (index === 0) {
+            removeNode = this.head
             this.head = this.head.next
+        } else {
+            let prev = this.head
+            for (let i = 0; i < index - 1; i++) {
+                prev = prev.next
+            }
+            removeNode = prev.next
+            prev.next = removeNode.next
         }
-        let curr = this.head
-        for(let i=0;i<index-1;i++){
-            prev=curr
-            curr=curr.next
-        }
-        prev.next = curr.next
     }
     removeValue(value){
         if(!this.head){
             return null
         }
-        if(this.head.value == value){
-            this.head = this.head.next
+        if(this.head.value===value){
+            this.head=this.head.next
             return
         }else{
-            let prev
+            let prev = null
             let curr = this.head
-            while(curr.next){
-                prev = curr
-                curr = curr.next
-                if(curr.value = value){
-                    prev.next = curr.next
-                }
+            while(curr){
+               if(curr.value===value){
+                prev.next = curr.next
+                return
+               }
+               prev=curr
+               curr=curr.next
             }
+         
         }
     }
 }
 
+const list = new LinkedList
+list.append(5)
+list.prepend(7)
+list.prepend(10)
+list.insert(69, 1)
+// list.print()
+list.removeValue(69)
+list.print()
 
-const list = new LinkedList()
+// console.log(list.size());

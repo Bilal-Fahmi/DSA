@@ -24,6 +24,6 @@ function heapsort(arr) {
         heapify(arr, i, 0)
     }
     return arr
-}
+} 
 
 console.log(heapsort([6, 4, 78, 69, 67]));

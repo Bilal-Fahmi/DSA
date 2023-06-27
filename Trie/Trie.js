@@ -47,4 +47,4 @@ trie.insert('zeek')
 trie.insert('eren')
 
 console.log(trie.startsWith('ze'));
-console.log(trie.search('apple'));
+console.log(trie.search('zeek'));
